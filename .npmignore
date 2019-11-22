@@ -1,0 +1,13 @@
+# Logs
+*.log
+npm-debug.log
+.idea
+
+# Dependency directory
+node_modules
+
+# Runtime data
+tmp
+
+# Example
+example
