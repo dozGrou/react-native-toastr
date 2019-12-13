@@ -3,6 +3,9 @@
 npm-debug.log
 .idea
 
+# Builds
+*.tgz
+
 # Dependency directory
 node_modules
 
