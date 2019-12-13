@@ -4,13 +4,13 @@ import ToastrItem from './ToastrItem'
 
 export const ToastrContext = React.createContext();
 
-let lastInsertId = 0
+let lastId = 0
 
 export default function ToastrProvider({children}) {
   const [toasts, setToasts] = useState([]);
 
   const addToast = toast => {
-    const id = lastInsertId++;
+    const id = lastId++;
     toast.id = id;
 
     setToasts([...toasts, toast]);
@@ -20,20 +20,20 @@ export default function ToastrProvider({children}) {
     setToasts(toasts.filter(toast => toast.id !== id));
   };
 
-  const success = toast => {
-    addToast({...toast, type: 'success'});
+  const success = (text, config) => {
+    addToast({text, ...config, type: 'success'});
   };
 
-  const error = toast => {
-    addToast({...toast, type: 'error'});
+  const error = (text, config) => {
+    addToast({text, ...config, type: 'error'});
   };
 
-  const warning = toast => {
-    addToast({...toast, type: 'warning'});
+  const warning = (text, config) => {
+    addToast({text, ...config, type: 'warning'});
   };
 
-  const info = toast => {
-    addToast({...toast, type: 'info'});
+  const info = (text, config) => {
+    addToast({text, ...config, type: 'info'});
   };
 
   const toastr = {
@@ -51,7 +51,7 @@ export default function ToastrProvider({children}) {
         {toasts.map(toast => (
           <ToastrItem
             key={toast.id}
-            toast={toast}
+            {...toast}
             onRemove={() => removeToast(toast.id)}
           />
         ))}
