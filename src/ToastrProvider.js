@@ -24,8 +24,8 @@ export default function ToastrProvider({children}) {
     addToast({text, ...config, type: 'success'});
   };
 
-  const error = (text, config) => {
-    addToast({text, ...config, type: 'error'});
+  const danger = (text, config) => {
+    addToast({text, ...config, type: 'danger'});
   };
 
   const warning = (text, config) => {
@@ -38,7 +38,7 @@ export default function ToastrProvider({children}) {
 
   const toastr = {
     success,
-    error,
+    danger,
     warning,
     info,
   }

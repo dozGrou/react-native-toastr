@@ -8,7 +8,7 @@ const stylesByType = {
 		backgroundColorProgress: '#00801e',
 		borderColor: '#c3e6cb',
 	},
-	error: {
+	danger: {
 		color: '#721c24',
 		backgroundColor: '#f8d7da',
 		backgroundColorProgress: '#cc0014',
@@ -33,7 +33,7 @@ type Props = {
 
 	id: number,
 	text: string,
-	type: 'success' | 'error' | 'warning' | 'info',
+	type: 'success' | 'danger' | 'warning' | 'info',
 	timeout: boolean,
 	timeoutDuration: number,
 	dismissable: boolean,
