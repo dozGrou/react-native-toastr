@@ -1,7 +1,7 @@
 {
-  "name": "react-native-toastr",
-  "version": "0.0.1",
-  "description": "TODO",
+  "name": "@dozgrou/react-native-toastr",
+  "version": "0.0.3",
+  "description": "React Native Toastr for Android and IOS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,15 @@
     "type": "git",
     "url": "git@github.com:dozGrou/react-native-toastr.git"
   },
+  "keywords": [
+    "react",
+    "react-native",
+    "toastr",
+    "notification",
+    "in-app"
+  ],
   "author": "dozGrou",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dozGrou/react-native-toastr/issues"
   },
