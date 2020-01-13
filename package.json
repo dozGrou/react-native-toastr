@@ -1,6 +1,6 @@
 {
   "name": "@dozgrou/react-native-toastr",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Native Toastr for Android and IOS",
   "main": "index.js",
   "scripts": {
