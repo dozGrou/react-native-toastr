@@ -60,6 +60,9 @@ class ToastrItem extends Component<Props, State> {
 			opacity: new Animated.Value(0),
 			progress: new Animated.Value(1),
 		};
+
+		this.handlePress = this.handlePress.bind(this);
+		this.remove = this.remove.bind(this);
 	}
 
 	componentDidMount() {
@@ -75,10 +78,11 @@ class ToastrItem extends Component<Props, State> {
 					toValue: 0,
 					easing: Easing.linear,
 					duration: this.props.timeoutDuration,
+					useNativeDriver: false,
 				}).start();
 			}
 
-			this.timeout = setTimeout(() => this.remove(), this.props.timeoutDuration);
+			this.timeout = setTimeout(this.remove, this.props.timeoutDuration);
 		}
 	}
 
@@ -114,7 +118,7 @@ class ToastrItem extends Component<Props, State> {
 		})
 
 		return (
-			<TouchableWithoutFeedback onPress={() => this.handlePress()}>
+			<TouchableWithoutFeedback onPress={this.handlePress}>
 				<View>
 					<Animated.View
 						style={[
