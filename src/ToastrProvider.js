@@ -2,6 +2,14 @@ import React, {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import ToastrItem from './ToastrItem'
 
+function isDuplicate(toast1, toast2) {
+  return (
+    toast1?.text === toast2?.text &&
+    toast1?.type === toast2?.type &&
+    toast1?.duplicate === toast2?.duplicate
+  )
+}
+
 export const ToastrContext = React.createContext();
 
 let lastId = 0
@@ -9,15 +17,20 @@ let lastId = 0
 export default function ToastrProvider({children}) {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = toast => {
-    const id = lastId++;
-    toast.id = id;
+  const addToast = ({text, type, duplicate = true, ...config}) => {
+    const toast = {text, type, duplicate, ...config}
 
-    setToasts([...toasts, toast]);
+    if (!toast.duplicate && toasts.some(t => isDuplicate(t, toast))) {
+      return
+    }
+
+    toast.id = lastId++
+
+    setToasts(toasts => [...toasts, toast]);
   };
 
   const removeToast = id => {
-    setToasts(toasts.filter(toast => toast.id !== id));
+    setToasts(toasts => toasts.filter(toast => toast.id !== id));
   };
 
   const success = (text, config) => {

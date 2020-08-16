@@ -70,12 +70,13 @@ export default withToastr(Button)
 
 
 ## Toastr config
-|                   | Type      | Default   | Notes                                         |
-|-------------------|-----------|-----------|-----------------------------------------------|
-| timeout           | boolean   | true      | Set to `false` to disable the timeout         |
-| timeoutDuration   | number    | 5000      | The timeout duration in ms                    |
-| dismissable       | boolean   | true      | Set to `false` to disable click to remove     |
-| progressBar       | boolean   | true      | Set to `false` to deactivate the progress bar |
+|                   | Type      | Default   | Notes                                             |
+|-------------------|-----------|-----------|---------------------------------------------------|
+| timeout           | boolean   | true      | Set to `false` to disable the timeout             |
+| timeoutDuration   | number    | 5000      | The timeout duration in ms                        |
+| dismissable       | boolean   | true      | Set to `false` to disable click to remove         |
+| progressBar       | boolean   | true      | Set to `false` to deactivate the progress bar     |
+| duplicate         | boolean   | true      | Set to `false` to not display duplicates toastr   |
 
 
 ## License
