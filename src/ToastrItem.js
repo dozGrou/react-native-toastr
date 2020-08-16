@@ -130,7 +130,7 @@ class ToastrItem extends Component<Props, State> {
 							{this.props.text}
 						</Text>
 
-						{this.props.progressBar && (
+						{this.props.timeout && this.props.progressBar && (
 							<Animated.View style={[
 								styles.progress,
 								{
