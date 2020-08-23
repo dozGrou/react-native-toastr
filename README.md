@@ -33,16 +33,16 @@ class App extends React.Component {
 
 And then use the `withToastr` function to access the toastr api.
 
-```js
-import React from 'react'
-import {Text, TouchableOpacity} from 'react-native'
-import {withToastr} from '@dozgrou/react-native-toastr'
+```jsx
+import React from 'react';
+import {Text, TouchableOpacity} from 'react-native';
+import {withToastr} from '@dozgrou/react-native-toastr';
 
 class Button extends React.Component {
     handlePress() {
         this.props.toastr.success('Awesome notification', {
             dismissable: false,
-        })
+        });
     }
 	
     render() {
@@ -59,14 +59,44 @@ class Button extends React.Component {
 //in any component
 export default withToastr(Button)
 ```
+
+### Custom component
+
+```jsx
+import React from 'react'
+import {Text, TouchableOpacity, View} from 'react-native';
+import {withToastr} from '@dozgrou/react-native-toastr';
+
+const CustomComponent = ({onRemove}) => {
+  return (
+    <TouchableOpacity onPress={onRemove}>
+      <View>
+        <Text>Awesome custom component</Text>
+      </View>
+    </TouchableOpacity>
+  )
+};
+
+const Button = () => {
+  return (
+    <TouchableOpacity onPress={toastr.custom((...config) => <CustomComponent {...config} />)}>
+      <View>Click me</View>
+    </TouchableOpacity>
+  );
+};
+
+export default withToastr(Button);
+```
+
 ## Methods
 
-| Method name   | Arguments                                             | Notes                             |
-|---------------|-------------------------------------------------------|-----------------------------------|
-|success        | text: string, config?: [ToastrConfig](#toastr-config) | Show a success message (Green)    |
-|danger         | text: string, config?: [ToastrConfig](#toastr-config) | Show a danger message (Red)       |
-|warning        | text: string, config?: [ToastrConfig](#toastr-config) | Show a warning message (Yellow)   |
-|info           | text: string, config?: [ToastrConfig](#toastr-config) | Show an info message (Blue)       |
+| Method name   | Arguments                                                                         | Notes                             |
+|---------------|-----------------------------------------------------------------------------------|-----------------------------------|
+|success        | text: string, config?: [ToastrConfig](#toastr-config)                             | Show a success message (Green)    |
+|danger         | text: string, config?: [ToastrConfig](#toastr-config)                             | Show a danger message (Red)       |
+|warning        | text: string, config?: [ToastrConfig](#toastr-config)                             | Show a warning message (Yellow)   |
+|info           | text: string, config?: [ToastrConfig](#toastr-config)                             | Show an info message (Blue)       |
+|custom         | component: Function(onRemove: Function), config?: [ToastrConfig](#toastr-config)  | Show a custom component           |
 
 
 ## Toastr config

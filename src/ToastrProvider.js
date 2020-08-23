@@ -21,10 +21,10 @@ export default function ToastrProvider({children}) {
     const toast = {text, type, duplicate, ...config}
 
     if (!toast.duplicate && toasts.some(t => isDuplicate(t, toast))) {
-      return
+      return;
     }
 
-    toast.id = lastId++
+    toast.id = lastId++;
 
     setToasts(toasts => [...toasts, toast]);
   };
@@ -33,27 +33,19 @@ export default function ToastrProvider({children}) {
     setToasts(toasts => toasts.filter(toast => toast.id !== id));
   };
 
-  const success = (text, config) => {
-    addToast({text, ...config, type: 'success'});
-  };
+  const success = (text, config) => addToast({text, ...config, type: 'success'});
+  const danger = (text, config) => addToast({text, ...config, type: 'danger'});
+  const warning = (text, config) => addToast({text, ...config, type: 'warning'});
+  const info = (text, config) => addToast({text, ...config, type: 'info'});
 
-  const danger = (text, config) => {
-    addToast({text, ...config, type: 'danger'});
-  };
-
-  const warning = (text, config) => {
-    addToast({text, ...config, type: 'warning'});
-  };
-
-  const info = (text, config) => {
-    addToast({text, ...config, type: 'info'});
-  };
+  const custom = (component, config) => addToast({component, ...config});
 
   const toastr = {
     success,
     danger,
     warning,
     info,
+    custom,
   }
 
   return (
@@ -61,13 +53,26 @@ export default function ToastrProvider({children}) {
       <View style={{flex: 1}}>{children}</View>
 
       <View style={styles.toastsContainer}>
-        {toasts.map(toast => (
-          <ToastrItem
-            key={toast.id}
-            {...toast}
-            onRemove={() => removeToast(toast.id)}
-          />
-        ))}
+        {toasts.map(toast => {
+          const {component: Component} = toast;
+          if (Component) {
+            return (
+              <Component
+                key={toast.id}
+                {...toast}
+                onRemove={() => removeToast(toast.id)}
+              />
+            );
+          }
+
+          return (
+            <ToastrItem
+              key={toast.id}
+              {...toast}
+              onRemove={() => removeToast(toast.id)}
+            />
+          );
+        })}
       </View>
     </ToastrContext.Provider>
   );

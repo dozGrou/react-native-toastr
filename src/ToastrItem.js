@@ -117,16 +117,18 @@ class ToastrItem extends Component<Props, State> {
 			outputRange: ['0%', '100%'],
 		})
 
+		const style = stylesByType[this.props.type];
+
 		return (
 			<TouchableWithoutFeedback onPress={this.handlePress}>
 				<View>
 					<Animated.View
 						style={[
 							styles.toastContainer,
-							stylesByType[this.props.type],
+							style,
 							{opacity}
 						]}>
-						<Text style={[styles.toastText, {color: stylesByType[this.props.type].color}]}>
+						<Text style={[styles.toastText, {color: style?.color}]}>
 							{this.props.text}
 						</Text>
 
@@ -134,7 +136,7 @@ class ToastrItem extends Component<Props, State> {
 							<Animated.View style={[
 								styles.progress,
 								{
-									backgroundColor: stylesByType[this.props.type].backgroundColorProgress,
+									backgroundColor: style?.backgroundColorProgress,
 									width,
 								},
 							]} />
