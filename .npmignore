@@ -12,5 +12,9 @@ node_modules
 # Runtime data
 tmp
 
+# Chore
+.eslintrc.js
+.babelrc
+
 # Example
 example

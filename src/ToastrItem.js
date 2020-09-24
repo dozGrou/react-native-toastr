@@ -60,6 +60,9 @@ class ToastrItem extends Component<Props, State> {
 			opacity: new Animated.Value(0),
 			progress: new Animated.Value(1),
 		};
+
+		this.handlePress = this.handlePress.bind(this);
+		this.remove = this.remove.bind(this);
 	}
 
 	componentDidMount() {
@@ -75,10 +78,11 @@ class ToastrItem extends Component<Props, State> {
 					toValue: 0,
 					easing: Easing.linear,
 					duration: this.props.timeoutDuration,
+					useNativeDriver: false,
 				}).start();
 			}
 
-			this.timeout = setTimeout(() => this.remove(), this.props.timeoutDuration);
+			this.timeout = setTimeout(this.remove, this.props.timeoutDuration);
 		}
 	}
 
@@ -113,24 +117,26 @@ class ToastrItem extends Component<Props, State> {
 			outputRange: ['0%', '100%'],
 		})
 
+		const style = stylesByType[this.props.type];
+
 		return (
-			<TouchableWithoutFeedback onPress={() => this.handlePress()}>
+			<TouchableWithoutFeedback onPress={this.handlePress}>
 				<View>
 					<Animated.View
 						style={[
 							styles.toastContainer,
-							stylesByType[this.props.type],
+							style,
 							{opacity}
 						]}>
-						<Text style={[styles.toastText, {color: stylesByType[this.props.type].color}]}>
+						<Text style={[styles.toastText, {color: style?.color}]}>
 							{this.props.text}
 						</Text>
 
-						{this.props.progressBar && (
+						{this.props.timeout && this.props.progressBar && (
 							<Animated.View style={[
 								styles.progress,
 								{
-									backgroundColor: stylesByType[this.props.type].backgroundColorProgress,
+									backgroundColor: style?.backgroundColorProgress,
 									width,
 								},
 							]} />
