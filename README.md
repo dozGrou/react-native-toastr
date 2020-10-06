@@ -79,7 +79,7 @@ const CustomComponent = ({onRemove}) => {
 
 const Button = () => {
   return (
-    <TouchableOpacity onPress={toastr.custom((...config) => <CustomComponent {...config} />)}>
+    <TouchableOpacity onPress={toastr.custom(({...config}) => <CustomComponent {...config} />)}>
       <View>Click me</View>
     </TouchableOpacity>
   );
