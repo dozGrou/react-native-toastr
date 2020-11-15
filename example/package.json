@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@dozgrou/react-native-toastr": "file:../dozgrou-react-native-toastr-0.0.3.tgz",
+    "@dozgrou/react-native-toastr": "^0.1.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-linear-gradient": "^2.5.6"

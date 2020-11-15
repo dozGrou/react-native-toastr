@@ -3,7 +3,6 @@
 import {ToastrProvider} from '@dozgrou/react-native-toastr';
 import React from 'react';
 import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Content from './components/Content';
 import Header from './components/Header';
 
@@ -12,7 +11,7 @@ const App: () => React$Node = () => {
     <ToastrProvider>
       <StatusBar barStyle="dark-content" backgroundColor="#08b3f6" />
 
-      <SafeAreaView style={{flex: 1, backgroundColor: Colors.white}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <ScrollView>
           <Header />
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 15,
     paddingHorizontal: 10,
-    backgroundColor: Colors.white,
+    backgroundColor: '#fff',
   },
 });
 
