@@ -12,6 +12,16 @@ or
 npm install @dozgrou/react-native-toastr
 ```
 
+
+## Example App
+
+To run the example application, simply clone the repository and then theses commands
+```
+cd example
+npm install
+npm run android OR npm run ios
+``` 
+
 ## Usage
 
 First, wrap your entire application with `ToastrProvider` component.
