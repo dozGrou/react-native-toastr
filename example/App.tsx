@@ -1,12 +1,13 @@
 /** @flow strict-local */
 
+// @ts-ignore
 import {ToastrProvider} from '@dozgrou/react-native-toastr';
 import React from 'react';
 import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import Content from './components/Content';
 import Header from './components/Header';
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
     <ToastrProvider>
       <StatusBar barStyle="dark-content" backgroundColor="#08b3f6" />
