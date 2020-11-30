@@ -1,6 +1,10 @@
-import React, {useState} from 'react'
-import {StyleSheet, View} from 'react-native'
-import ToastrItem from './ToastrItem'
+import React, {useState} from 'react';
+import {LayoutAnimation, Platform, StyleSheet, UIManager, View} from 'react-native';
+import ToastrItem from './ToastrItem';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 function isDuplicate(toast1, toast2) {
   return (
@@ -30,6 +34,7 @@ export default function ToastrProvider({children}) {
   };
 
   const removeToast = id => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setToasts(toasts => toasts.filter(toast => toast.id !== id));
   };
 
