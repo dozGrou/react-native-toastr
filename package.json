@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/dozGrou/react-native-toastr#readme",
   "devDependencies": {
-    "metro-react-native-babel-preset": "^0.57.0"
+    "metro-react-native-babel-preset": "^0.57.0",
+    "react-native": "^0.63.4"
   }
 }
