@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {LayoutAnimation, Platform, StyleSheet, UIManager, View} from 'react-native';
 import ToastrItem from './ToastrItem';
 
@@ -38,23 +38,33 @@ export default function ToastrProvider({children}) {
     setToasts(toasts => toasts.filter(toast => toast.id !== id));
   };
 
-  const success = (text, config) => addToast({text, ...config, type: 'success'});
-  const danger = (text, config) => addToast({text, ...config, type: 'danger'});
-  const warning = (text, config) => addToast({text, ...config, type: 'warning'});
-  const info = (text, config) => addToast({text, ...config, type: 'info'});
+  const success = useCallback((text, config) => {
+    addToast({text, ...config, type: 'success'})
+  }, [addToast]);
+  const danger = useCallback((text, config) => {
+    addToast({text, ...config, type: 'danger'})
+  }, [addToast]);
+  const warning = useCallback((text, config) => {
+    addToast({text, ...config, type: 'warning'})
+  }, [addToast]);
+  const info = useCallback((text, config) => {
+    addToast({text, ...config, type: 'info'})
+  }, [addToast]);
 
-  const custom = (component, config) => addToast({component, ...config});
-
-  const toastr = {
-    success,
-    danger,
-    warning,
-    info,
-    custom,
-  }
+  const custom = useCallback((component, config) => {
+    addToast({component, ...config})
+  }, [addToast]);
 
   return (
-    <ToastrContext.Provider value={toastr}>
+    <ToastrContext.Provider
+      value={{
+        success,
+        danger,
+        warning,
+        info,
+        custom,
+      }}
+    >
       <View style={{flex: 1}}>{children}</View>
 
       <View style={styles.toastsContainer}>
