@@ -1,8 +1,17 @@
 import React, {useState, useCallback} from 'react';
-import {LayoutAnimation, Platform, StyleSheet, UIManager, View} from 'react-native';
+import {
+  LayoutAnimation,
+  Platform,
+  StyleSheet,
+  UIManager,
+  View,
+} from 'react-native';
 import ToastrItem from './ToastrItem';
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
@@ -11,49 +20,69 @@ function isDuplicate(toast1, toast2) {
     toast1?.text === toast2?.text &&
     toast1?.type === toast2?.type &&
     toast1?.duplicate === toast2?.duplicate
-  )
+  );
 }
 
 export const ToastrContext = React.createContext();
 
-let lastId = 0
+let lastId = 0;
 
 export default function ToastrProvider({children}) {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = ({text, type, duplicate = true, ...config}) => {
-    const toast = {text, type, duplicate, ...config}
+  const addToast = useCallback(
+    ({text, type, duplicate = true, ...config}) => {
+      const toast = {text, type, duplicate, ...config};
 
-    if (!toast.duplicate && toasts.some(t => isDuplicate(t, toast))) {
-      return;
-    }
+      if (!toast.duplicate && toasts.some((t) => isDuplicate(t, toast))) {
+        return;
+      }
 
-    toast.id = lastId++;
+      toast.id = lastId++;
 
-    setToasts(toasts => [...toasts, toast]);
-  };
+      // eslint-disable-next-line no-shadow
+      setToasts((toasts) => [...toasts, toast]);
+    },
+    [toasts],
+  );
 
-  const removeToast = id => {
+  const removeToast = (id) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setToasts(toasts => toasts.filter(toast => toast.id !== id));
+    // eslint-disable-next-line no-shadow
+    setToasts((toasts) => toasts.filter((toast) => toast.id !== id));
   };
 
-  const success = useCallback((text, config) => {
-    addToast({text, ...config, type: 'success'})
-  }, [addToast]);
-  const danger = useCallback((text, config) => {
-    addToast({text, ...config, type: 'danger'})
-  }, [addToast]);
-  const warning = useCallback((text, config) => {
-    addToast({text, ...config, type: 'warning'})
-  }, [addToast]);
-  const info = useCallback((text, config) => {
-    addToast({text, ...config, type: 'info'})
-  }, [addToast]);
+  const success = useCallback(
+    (text, config) => {
+      addToast({text, ...config, type: 'success'});
+    },
+    [addToast],
+  );
+  const danger = useCallback(
+    (text, config) => {
+      addToast({text, ...config, type: 'danger'});
+    },
+    [addToast],
+  );
+  const warning = useCallback(
+    (text, config) => {
+      addToast({text, ...config, type: 'warning'});
+    },
+    [addToast],
+  );
+  const info = useCallback(
+    (text, config) => {
+      addToast({text, ...config, type: 'info'});
+    },
+    [addToast],
+  );
 
-  const custom = useCallback((component, config) => {
-    addToast({component, ...config})
-  }, [addToast]);
+  const custom = useCallback(
+    (component, config) => {
+      addToast({component, ...config});
+    },
+    [addToast],
+  );
 
   return (
     <ToastrContext.Provider
@@ -65,10 +94,10 @@ export default function ToastrProvider({children}) {
         custom,
       }}
     >
-      <View style={{flex: 1}}>{children}</View>
+      <View style={styles.childrenContainer}>{children}</View>
 
       <View style={styles.toastsContainer}>
-        {toasts.map(toast => {
+        {toasts.map((toast) => {
           const {component: Component} = toast;
           if (Component) {
             return (
@@ -94,6 +123,9 @@ export default function ToastrProvider({children}) {
 }
 
 const styles = StyleSheet.create({
+  childrenContainer: {
+    flex: 1,
+  },
   toastsContainer: {
     zIndex: 9999,
     position: 'absolute',
